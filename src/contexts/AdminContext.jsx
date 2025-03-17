@@ -17,6 +17,7 @@ const AdminContextProvider = ({ children }) => {
   const [cartItem, setCartItem] = useState([]);
   const [cartUIitem, setcartUIitem] = useState([]);
   const [alert, setAlert] = useState("");
+  const [totalAmount, setTotalAmount] = useState(0);
   useEffect(() => {
     (async () => {
       try {
@@ -42,8 +43,9 @@ const AdminContextProvider = ({ children }) => {
         const data = await response.json();
         if (!data) return console.error("fail to get the data...");
         // console.log("data: ", data);
-        const { cartItems } = data;
+        const { cartItems, totalAmount } = data;
         setCartItem(cartItems);
+        setTotalAmount(totalAmount);
         // console.log(`cartItems: ${cartItems}`);
       } catch (error) {
         console.error("Can't fetch cart Item, ", error);
@@ -184,6 +186,19 @@ const AdminContextProvider = ({ children }) => {
     }
   };
 
+  const handleMakeOrder = async () => {
+    try {
+      fetch(`${import.meta.env.VITE_APP_SERVER}/order/dispatch`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ cartItem, totalAmount }),
+      });
+    } catch (error) {
+      console.log("Server Break, can't make order right now.. :(");
+    }
+  };
+
   // const cartData =
 
   return (
@@ -215,6 +230,8 @@ const AdminContextProvider = ({ children }) => {
         // cartData,
         editProduct,
         deleteCartItem,
+        handleMakeOrder,
+        totalAmount,
       }}
     >
       {children}

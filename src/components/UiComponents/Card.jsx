@@ -33,7 +33,7 @@ const Card = ({
   return (
     <>
       <div
-        className="group flex w-full m-auto relative overflow-hidden transition cursor-pointer bg-gray-200 rounded-3xl items-center p-8 gap-2"
+        className="group flex w-full mx-auto relative overflow-hidden transition cursor-pointer bg-gray-200 rounded-3xl items-center p-8 gap-2"
         key={key}
       >
         <div className="max-h-56 flex justify-center items-center overflow-hidden rounded h-10 w-10 bg-gray-300">
