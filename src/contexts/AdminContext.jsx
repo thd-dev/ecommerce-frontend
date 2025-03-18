@@ -58,9 +58,13 @@ const AdminContextProvider = ({ children }) => {
     setcartUIitem(cartItem);
     let updateCartItem = cartItem
       .map((item) => {
-        const product = productList.find((p_item) => {
-          return String(p_item._id) === String(item.productId);
-        });
+        const product =
+          productList &&
+          productList.length > 0 &&
+          Array.isArray(productList) &&
+          productList.find((p_item) => {
+            return String(p_item._id) === String(item.productId);
+          });
         if (!product) {
           // console.log("Out of stock");
           return null;
