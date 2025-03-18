@@ -86,7 +86,7 @@ export const AuthContextProvider = ({ children }) => {
       setPassword("");
       setIdentifier("");
       setIsLoggedIn(true);
-      // window.location.href = data.redirectUrl;
+      window.location.href = data.redirectUrl;
     } catch (error) {
       console.log("Backend error, ", error);
     }
